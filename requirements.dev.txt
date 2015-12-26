@@ -1,0 +1,11 @@
+-r requirements.txt
+pylama
+tox
+mock
+pytest
+pytest-cov
+coverage
+coveralls
+
+# jtsbq
+git+git://github.com/okfn/tabulator-py.git

@@ -1,0 +1,42 @@
+{
+    "resources": [
+        {
+            "path": "data/data1.csv",
+            "schema": {
+                "fields": [
+                    {
+                        "type": "string",
+                        "name": "id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name"
+                    },
+                    {
+                        "type": "string",
+                        "name": "description"
+                    },
+                    {
+                        "type": "number",
+                        "name": "amount"
+                    }
+                ]
+            }
+        },
+        {
+            "path": "data/data2.csv",
+            "schema": {
+                "fields": [
+                    {
+                        "type": "integer",
+                        "name": "id"
+                    },
+                    {
+                        "type": "string",
+                        "name": "name"
+                    }
+                ]
+            }
+        }
+    ]
+}
