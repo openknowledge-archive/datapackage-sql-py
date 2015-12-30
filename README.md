@@ -11,38 +11,37 @@ This section is intended to be used by end-users of the library.
 
 ### Import/Export
 
-> See section below how to get SQL engine.
+> See section below how to get tabular storage object.
 
 High-level API is easy to use.
 
 Having Data Package in current directory we can import it to sql database:
 
 ```python
-import jtssql
 import dpsql
 
-storage = jtssql.Storage(<engine>)
-dpsql.import_package(storage, 'descriptor.json')
+dpsql.import_package(<storage>, 'descriptor.json')
 ```
 
 Also we can export it from sql database:
 
 ```python
-import jtssql
 import dpsql
 
-storage = jtssql.Storage(<engine>)
-dpsql.export_package(storage, 'descriptor.json')
+dpsql.export_package(<storage>, 'descriptor.json')
 ```
 
-### SQL Engine
+### Tabular Storage
 
-SQLAlchemy is used as sql wrapper. We can get engine this way:
+SQLAlchemy is used as sql wrapper.
+We can get storage this way:
 
 ```python
+import jtssql
 from sqlalchemy import create_engine
 
 engine = create_engine('sqlite:///:memory:')
+storage = jtssql.Storage(engine)
 ```
 
 ### Design Overview
