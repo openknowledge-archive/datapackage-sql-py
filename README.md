@@ -47,7 +47,7 @@ engine = create_engine('sqlite:///:memory:')
 
 ### Design Overview
 
-### Storage & Drivers
+#### Storage & Drivers
 
 See jsontableschema layer [readme](https://github.com/okfn/jsontableschema-sql-py/tree/update).
 
