@@ -1,92 +1,64 @@
-# datapackage-bigquery-py
+# datapackage-sql-py
 
-[![Travis](https://img.shields.io/travis/okfn/datapackage-bigquery-py.svg)](https://travis-ci.org/okfn/datapackage-bigquery-py)
-[![Coveralls](http://img.shields.io/coveralls/okfn/datapackage-bigquery-py.svg?branch=master)](https://coveralls.io/r/okfn/datapackage-bigquery-py?branch=master)
+[![Travis](https://img.shields.io/travis/okfn/datapackage-sql-py.svg)](https://travis-ci.org/okfn/datapackage-sql-py)
+[![Coveralls](http://img.shields.io/coveralls/okfn/datapackage-sql-py.svg?branch=master)](https://coveralls.io/r/okfn/datapackage-sql-py?branch=master)
 
-Generate and load BigQuery tables based on Data Package.
+Generate and load SQL tables based on Data Package.
 
 ## Usage
 
 This section is intended to be used by end-users of the library.
 
-> See section below how to get authentificated service.
+### Import/Export
 
-Package represents Data Package stored as Big Query dataset:
+> See section below how to get SQL engine.
+
+High-level API is easy to use.
+
+Having Data Package in current directory we can import it to sql database:
 
 ```python
-from dpbq import Package
+import jtssql
+import dpsql
 
-package = Package(<service>, 'project_id', 'dataset_id')
-
-package.create('path/to/descriptor.json')
-package.get_resources()
-
-package.export('path/to/descriptor.json')
+storage = jtssql.Storage(<engine>)
+dpsql.import_package(storage, 'descriptor.json')
 ```
 
-Dataset represents a native Big Query dataset:
+Also we can export it from sql database:
 
 ```python
-from dpbq import Dataset
+import jtssql
+import dpsql
 
-dataset = Dataset(<service>, 'project_id', 'dataset_id')
-
-dataset.create()
-dataset.get_tables()
+storage = jtssql.Storage(<engine>)
+dpsql.export_package(storage, 'descriptor.json')
 ```
 
-### Authentificated service
+### SQL Engine
 
-To start using Google BigQuery service:
-- Create a new project - [link](https://console.developers.google.com/home/dashboard)
-- Create a service key - [link](https://console.developers.google.com/apis/credentials)
-- Download json credentials and set `GOOGLE_APPLICATION_CREDENTIALS` environment variable
-
-For example:
+SQLAlchemy is used as sql wrapper. We can get engine this way:
 
 ```python
-import os
-from apiclient.discovery import build
-from oauth2client.client import GoogleCredentials
+from sqlalchemy import create_engine
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '.credentials.json'
-credentials = GoogleCredentials.get_application_default()
-service = build('bigquery', 'v2', credentials=credentials)
+engine = create_engine('sqlite:///:memory:')
 ```
 
 ### Design Overview
 
-#### Entities
+### Storage & Drivers
 
-- Dataset
-
-    Table is a native BigQuery dataset. Dataset can contain tables.
-
-- Package
-
-    Package is a Data Package stored as Dataset on BigQuery. Resources
-    are stored as tables with directory separator `/` replaced by `__` (2 underscores).
-    Data Package structure can be restored from BigQuery dataset without
-    any knowledge about initial `datapackage.json`.
-
-> Package is a Data Package facade to Dataset (BigQuery) backend.
-
-Dataset and Package are geteways by their nature. It means user can initiate
-Dataset without real BigQuery dataset creation then call `create` or `delete` to
-delete the real datable without instance destruction.
+See jsontableschema layer [readme](https://github.com/okfn/jsontableschema-sql-py/tree/update).
 
 #### Mappings
 
 ```
 datapackage.json -> *not stored*
-datapackage.json resources -> BigQuery dataset's tables
-data/data.csv schema -> BigQuery talbe schema
-data/data.csv data -> BigQuery talbe data
+datapackage.json resources -> sql  tables
+data/data.csv schema -> sql table schema
+data/data.csv data -> sql table data
 ```
-
-#### Drivers
-
-Default Google BigQuery client is used as part of `jsontableschema-bigquery-py` package - [docs](https://developers.google.com/resources/api-libraries/documentation/bigquery/v2/python/latest/).
 
 ## Development
 
