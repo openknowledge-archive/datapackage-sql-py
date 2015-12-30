@@ -2,7 +2,7 @@
 
   "name": "dpsql",
   "description": "Generate BigQuery tables, load and extract data, based on Data Package.",
-  "version": "0.1.0-alpha",
+  "version": "0.1.0",
   "slug": "dpsql",
   "author": "Open Knowledge Foundation",
   "author_email": "info@okfn.org",
