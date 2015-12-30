@@ -16,10 +16,6 @@ env:
 
 install:
   - python run.py install
-  # Temporary workaround
-  - rm jtssql
-  - git clone https://github.com/okfn/jsontableschema-sql-py.git tmp
-  - mv tmp/jtssql jtssql
 
 script:
   - python run.py review
