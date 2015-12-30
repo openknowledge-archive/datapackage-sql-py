@@ -14,15 +14,12 @@ env:
   global:
     - TOXENV="py${PYTHON_VERSION//./}"
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_253ff25ce075_key -iv $encrypted_253ff25ce075_iv -in .credentials.json.enc -out .credentials.json -d
-
 install:
   - python run.py install
   # Temporary workaround
-  - rm jtsbq
-  - git clone https://github.com/okfn/jsontableschema-bigquery-py.git tmp
-  - mv tmp/jtsbq jtsbq
+  - rm jtssql
+  - git clone https://github.com/okfn/jsontableschema-sql-py.git tmp
+  - mv tmp/jtssql jtssql
 
 script:
   - python run.py review

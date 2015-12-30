@@ -8,44 +8,35 @@ import io
 import os
 import sys
 import json
-from apiclient.discovery import build
-from oauth2client.client import GoogleCredentials
+from sqlalchemy import create_engine
 
 sys.path.insert(0, '.')
-from dpsql import Package
+import jtssql
+import dpsql
 
 
-def run(import_path='examples/data/spending/datapackage.json',
-        export_path='tmp/datapackage_test',
-        dataset_id='package_test'):
+def run(import_descriptor='examples/data/spending/datapackage.json',
+        export_descriptor='tmp/datapackage.json',
+        prefix='test_'):
 
-    # Service
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = '.credentials.json'
-    credentials = GoogleCredentials.get_application_default()
-    service = build('bigquery', 'v2', credentials=credentials)
+    # Storage
+    engine = create_engine('sqlite:///:memory:')
+    storage = jtssql.Storage(engine=engine, prefix=prefix)
 
-    # Dataset
-    project_id = json.load(io.open('.credentials.json', encoding='utf-8'))['project_id']
-    package = Package(service, project_id, dataset_id)
-
-    # Delete
-    print('[Delete]')
-    print(package.is_existent)
-    if package.is_existent:
-        package.delete()
-    print(package.is_existent)
-
-    # Create
-    print('[Create]')
-    if not package.is_existent:
-        package.create(import_path)
-    print(package.is_existent)
-    print(package.get_resources())
+    # Import
+    print('[Import]')
+    dpsql.import_package(
+           storage=storage,
+           descriptor=import_descriptor,
+           force=True)
+    print('imported')
 
     # Export
     print('[Export]')
-    package.export(export_path)
-    print('done')
+    dpsql.export_package(
+            storage=storage,
+            descriptor=export_descriptor)
+    print('exported')
 
     return locals()
 
