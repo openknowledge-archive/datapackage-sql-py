@@ -72,11 +72,12 @@ def export_package(storage, descriptor):
         # Prepare
         schema = storage.describe(table)
         base = os.path.dirname(descriptor)
-        path = os.path.join(base, _restore_path(table))
+        path = _restore_path(table)
+        fullpath = os.path.join(base, path)
 
         # Write data
-        _ensure_dir(path)
-        with io.open(path,
+        _ensure_dir(fullpath)
+        with io.open(fullpath,
                      mode=_write_mode,
                      newline=_write_newline,
                      encoding=_write_encoding) as file:
