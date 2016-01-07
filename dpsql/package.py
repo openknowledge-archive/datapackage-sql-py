@@ -46,6 +46,9 @@ def import_package(storage, descriptor):
         datamap[table] = data
 
     # Create tables
+    for table in tables:
+        if storage.check(table):
+            storage.delete(table)
     storage.create(tables, schemas)
 
     # Write data to tables
