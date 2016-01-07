@@ -1,4 +1,6 @@
 -r requirements.txt
+sqlalchemy
+git+https://github.com/okfn/jsontableschema-sql-py.git@update
 pylama
 tox
 mock
