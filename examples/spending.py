@@ -13,7 +13,7 @@ from examples.base import run
 
 # Fixtures
 url = 'sqlite:///:memory:'
-prefix = 'test_'
+prefix = 'spending_'
 source = 'examples/packages/spending/datapackage.json'
 target = 'tmp/packages/spending/datapackage.json'
 
