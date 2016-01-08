@@ -10,6 +10,7 @@ import re
 import csv
 import six
 import json
+from copy import deepcopy
 from jsontableschema.model import SchemaModel
 from datapackage import DataPackage
 
@@ -92,7 +93,7 @@ def export_package(storage, descriptor):
                      mode=_write_mode,
                      newline=_write_newline,
                      encoding=_write_encoding) as file:
-            model = SchemaModel(schema)
+            model = SchemaModel(deepcopy(schema))
             data = storage.read(table)
             writer = csv.writer(file)
             writer.writerow(model.headers)
