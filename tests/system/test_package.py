@@ -33,7 +33,7 @@ class TestPackage(unittest.TestCase):
 
     # Tests
 
-    def test(self):
+    def test_spending(self):
 
         # Run function
         base.run(spending.url, spending.prefix, spending.source, self.target)
