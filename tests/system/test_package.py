@@ -14,7 +14,6 @@ import shutil
 import tempfile
 import unittest
 
-
 from examples import base
 from examples import spending
 

@@ -1,39 +1,51 @@
 {
     "resources": [
         {
+            "name": "data1",
             "path": "data/data1.csv",
             "schema": {
                 "fields": [
                     {
-                        "type": "string",
-                        "name": "id"
+                        "name": "id",
+                        "type": "string"
                     },
                     {
-                        "type": "string",
-                        "name": "name"
+                        "name": "name",
+                        "type": "string"
                     },
                     {
-                        "type": "string",
-                        "name": "description"
+                        "name": "description",
+                        "type": "string"
                     },
                     {
-                        "type": "number",
-                        "name": "amount"
+                        "name": "amount",
+                        "type": "number"
                     }
-                ]
+                ],
+                "primaryKey": "id"
             }
         },
         {
+            "name": "data2",
             "path": "data/data2.csv",
             "schema": {
                 "fields": [
                     {
-                        "type": "integer",
-                        "name": "id"
+                        "type": "string",
+                        "name": "parent"
                     },
                     {
                         "type": "string",
-                        "name": "name"
+                        "name": "comment"
+                    }
+                ],
+                "foreignKeys": [
+                    {
+                        "fields": "parent",
+                        "reference": {
+                            "resource": "data1",
+                            "fields": "id"
+                        }
                     }
                 ]
             }
