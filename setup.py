@@ -14,12 +14,11 @@ from setuptools import setup, find_packages
 def read(path):
     basedir = os.path.dirname(__file__)
     return io.open(os.path.join(basedir, path), encoding='utf-8').read()
+
+
 def clean(deps):
-    res = []
-    for dep in deps:
-        if dep and not dep.startswith('#') and not dep.startswith('git'):
-            res.append(dep)
-    return res
+    return [dep for dep in deps
+            if dep and not dep.startswith('#') and not dep.startswith('git') and not dep.startswith('-r')]
 
 
 # Prepare
