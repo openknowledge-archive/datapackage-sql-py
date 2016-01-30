@@ -20,6 +20,8 @@ def run(url, prefix, source, target):
 
     # Import package
     dpsql.import_package(storage, source)
+    print('Imported datapackage from "%s"' % source)
 
     # Export package
     dpsql.export_package(storage, target)
+    print('Exported datapackage to "%s"' % target)
