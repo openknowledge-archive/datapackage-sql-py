@@ -25,8 +25,8 @@ def clean(deps):
 # Prepare
 readme = read('README.md')
 license = read('LICENSE.txt')
-requirements = clean(read('requirements.txt').split())
-requirements_dev = clean(read('requirements.dev.txt').split())
+requirements = clean(read('requirements.txt').splitlines())
+requirements_dev = clean(read('requirements.dev.txt').splitlines())
 package = json.loads(read('package.json'))
 
 
