@@ -12,7 +12,7 @@ import jtssql
 import dpsql
 
 
-def run(url, prefix, source, target):
+def run(url, prefix, source, target, datapackage_name):
 
     # Storage
     engine = create_engine(url)
@@ -23,5 +23,5 @@ def run(url, prefix, source, target):
     print('Imported datapackage from "%s"' % source)
 
     # Export package
-    dpsql.export_package(storage, target)
+    dpsql.export_package(storage, target, datapackage_name)
     print('Exported datapackage to "%s"' % target)

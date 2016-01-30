@@ -28,7 +28,7 @@ Also we can export it from sql database:
 ```python
 import dpsql
 
-dpsql.export_package(<storage>, 'descriptor.json')
+dpsql.export_package(<storage>, 'descriptor.json', 'datapackage_name')
 ```
 
 ### Tabular Storage

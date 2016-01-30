@@ -36,7 +36,8 @@ class TestPackage(unittest.TestCase):
     def test_testing(self):
 
         # Run function
-        base.run(testing.url, testing.prefix, testing.source, self.target)
+        base.run(testing.url, testing.prefix, testing.source,
+                 self.target, 'testing')
 
         # Assert schemas
         source = json.load(io.open(testing.source, encoding='utf-8'))

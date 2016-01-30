@@ -62,7 +62,7 @@ def import_package(storage, descriptor):
         storage.write(table, datamap[table])
 
 
-def export_package(storage, descriptor):
+def export_package(storage, descriptor, datapackage_name):
     """Export Data Package from storage.
 
     Parameters
@@ -71,6 +71,8 @@ def export_package(storage, descriptor):
         Storage object.
     descriptor: str
         Path where to store descriptor.
+    datapackage_name: str
+        Name of the exported datapackage.
 
     """
 
@@ -112,7 +114,10 @@ def export_package(storage, descriptor):
     with io.open(descriptor,
                  mode=_write_mode,
                  encoding=_write_encoding) as file:
-        descriptor = {'resources': resources}
+        descriptor = {
+            'name': datapackage_name,
+            'resources': resources,
+        }
         json.dump(descriptor, file, indent=4)
 
 
